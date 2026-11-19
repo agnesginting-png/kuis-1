@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuis Matematika XII – Transformasi Geometri & Lingkaran</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mu:#5d667a;--bd:#d9deea;--pr:#3b5bdb;--prt:#fff;--ok:#2b8a3e;--okb:#e3f6e8;--no:#c92a2a;--nob:#fde8e8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171f;--card:#1e2330;--tx:#eef0f6;--mu:#a2abc0;--bd:#343b4f;--pr:#7c96ff;--prt:#10131b;--ok:#69db7c;--okb:#173323;--no:#ff8787;--nob:#3a1c1f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14171f;--card:#1e2330;--tx:#eef0f6;--mu:#a2abc0;--bd:#343b4f;--pr:#7c96ff;--prt:#10131b;--ok:#69db7c;--okb:#173323;--no:#ff8787;--nob:#3a1c1f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:14px}
+h1{font-size:1.45rem;margin:0 0 6px}h2{font-size:1.1rem;margin:0 0 10px}
+p{margin:0 0 10px}.mu{color:var(--mu);font-size:.92rem}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font-size:.78rem;padding:2px 10px;border-radius:99px;border:1px solid var(--bd);color:var(--mu)}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0 16px}
+.bar i{display:block;height:100%;background:var(--pr);transition:width .25s}
+.q{font-size:1.05rem;margin-bottom:14px}
+.opt{display:flex;gap:10px;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1.5px solid var(--bd);border-radius:10px;padding:11px 13px;margin-bottom:9px;font:inherit;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--pr)}
+.opt b{min-width:1.4em;color:var(--mu)}
+.opt.ok{background:var(--okb);border-color:var(--ok)}
+.opt.no{background:var(--nob);border-color:var(--no)}
+.opt:disabled{cursor:default}
+.fb{border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:.95rem}
+.fb.ok{background:var(--okb)}.fb.no{background:var(--nob)}
+.btn{background:var(--pr);color:var(--prt);border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer}
+.btn.g{background:transparent;color:var(--pr);border:1.5px solid var(--pr)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+td,th{padding:7px 6px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}
+.score{font-size:2.6rem;font-weight:700;color:var(--pr);line-height:1.1}
+.rv{border-left:4px solid var(--no);padding-left:12px;margin-bottom:14px}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div id="start" class="card">
+  <h1>Kuis Matematika Kelas XII</h1>
+  <p class="mu">Transformasi Geometri (translasi, refleksi, rotasi, dilatasi) dan Lingkaran (panjang busur & luas juring)</p>
+  <p>20 soal pilihan ganda, terdiri atas soal numerasi dan soal cerita (literasi). Tingkat kesulitan: mudah, sedang, dan sulit. Kamu akan langsung melihat pembahasan setelah menjawab. Untuk soal lingkaran, gunakan π = 22/7 (kecuali ada keterangan lain).</p>
+  <h2>Indikator yang diukur</h2>
+  <table>
+    <tr><th>Materi</th><th>Indikator</th></tr>
+    <tr><td>Translasi</td><td>Menentukan bayangan titik dan garis hasil translasi serta menyelesaikan masalah kontekstual.</td></tr>
+    <tr><td>Refleksi</td><td>Menentukan bayangan hasil pencerminan terhadap sumbu, garis x = h, garis y = x, dan komposisinya.</td></tr>
+    <tr><td>Rotasi</td><td>Menentukan bayangan hasil rotasi dengan pusat O maupun pusat lain.</td></tr>
+    <tr><td>Dilatasi</td><td>Menentukan bayangan, faktor skala, dan pengaruh dilatasi pada ukuran dan luas bangun.</td></tr>
+    <tr><td>Busur & Juring</td><td>Menghitung panjang busur, luas juring, dan sudut pusat dalam konteks nyata.</td></tr>
+  </table>
+  <p style="margin-top:16px"><button class="btn" onclick="begin()">Mulai Kuis</button></p>
+</div>
+
+<div id="quiz" class="hide">
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><span id="no" class="mu"></span><span id="sc" class="mu"></span></div>
+    <div class="bar"><i id="pg"></i></div>
+    <div class="tags"><span class="tag" id="tt"></span><span class="tag" id="td"></span></div>
+    <div class="q" id="qt"></div>
+    <div id="ops"></div>
+    <div id="fb"></div>
+    <button class="btn hide" id="nx" onclick="next()">Lanjut</button>
+  </div>
+</div>
+
+<div id="res" class="hide">
+  <div class="card">
+    <p class="mu">Hasil kuis kamu</p>
+    <div class="score" id="rs"></div>
+    <p id="rm" style="margin-top:8px"></p>
+    <h2 style="margin-top:16px">Ketuntasan per materi</h2>
+    <table id="rt"></table>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" onclick="begin()">Ulangi Kuis</button>
+    </div>
+  </div>
+  <div class="card" id="rvc"><h2>Pembahasan soal yang belum tepat</h2><div id="rv"></div></div>
+</div>
+
+</div>
+<script>
+var Q=[
+{t:"Translasi",d:"Mudah",q:"Titik A(3, −2) ditranslasikan oleh T = (4, 5). Koordinat bayangan titik A adalah …",o:["(7, 3)","(−1, −7)","(7, −7)","(−1, 3)","(12, −10)"],a:0,p:"x’ = 3 + 4 = 7 dan y’ = −2 + 5 = 3, sehingga A’(7, 3)."},
+{t:"Translasi",d:"Mudah",q:"Sebuah robot pengantar barang di gudang berada di titik (2, 3) pada denah. Robot bergerak 5 satuan ke kanan, lalu 4 satuan ke bawah. Posisi robot sekarang adalah …",o:["(−3, 7)","(7, −1)","(7, 7)","(−3, −1)","(−1, 7)"],a:1,p:"Ke kanan menambah x dan ke bawah mengurangi y: (2 + 5, 3 − 4) = (7, −1)."},
+{t:"Translasi",d:"Sedang",q:"Bayangan titik P oleh translasi T = (−3, 2) adalah P’(1, −4). Koordinat titik P adalah …",o:["(−2, −2)","(4, −6)","(4, 6)","(−4, 6)","(−2, −6)"],a:1,p:"P = P’ − T = (1 − (−3), −4 − 2) = (4, −6)."},
+{t:"Translasi",d:"Sulit",q:"Garis y = 2x + 1 ditranslasikan oleh T = (3, −2). Persamaan bayangan garis tersebut adalah …",o:["y = 2x − 7","y = 2x − 5","y = 2x + 5","y = 2x − 3","y = 2x + 7"],a:0,p:"x’ = x + 3 dan y’ = y − 2, maka x = x’ − 3 dan y = y’ + 2. Substitusi: y’ + 2 = 2(x’ − 3) + 1, sehingga y’ = 2x’ − 7."},
+{t:"Refleksi",d:"Mudah",q:"Titik B(−4, 5) dicerminkan terhadap sumbu X. Koordinat bayangannya adalah …",o:["(4, 5)","(−4, −5)","(4, −5)","(5, −4)","(−5, 4)"],a:1,p:"Pencerminan terhadap sumbu X: (x, y) → (x, −y), jadi B’(−4, −5)."},
+{t:"Refleksi",d:"Mudah",q:"Seorang perajin batik membuat motif segitiga dengan titik sudut (1, 2), (3, 2), dan (2, 5). Agar motifnya simetris, ia membuat pasangan motif dengan mencerminkannya terhadap sumbu Y. Titik puncak motif pasangan berada di …",o:["(−2, 5)","(2, −5)","(−2, −5)","(5, 2)","(2, 5)"],a:0,p:"Pencerminan terhadap sumbu Y: (x, y) → (−x, y). Titik puncak (2, 5) menjadi (−2, 5)."},
+{t:"Refleksi",d:"Sedang",q:"Titik C(3, −1) dicerminkan terhadap garis x = 5. Koordinat bayangannya adalah …",o:["(−1, −1)","(7, −1)","(3, 11)","(2, −1)","(13, −1)"],a:1,p:"Pencerminan terhadap x = h: x’ = 2h − x = 10 − 3 = 7, sedangkan y tetap. Jadi C’(7, −1)."},
+{t:"Refleksi",d:"Sedang",q:"Titik D(2, −3) dicerminkan terhadap garis y = x, kemudian hasilnya dicerminkan terhadap sumbu X. Koordinat bayangan akhirnya adalah …",o:["(−3, −2)","(3, 2)","(−3, 2)","(3, −2)","(2, 3)"],a:0,p:"Terhadap y = x: (2, −3) → (−3, 2). Terhadap sumbu X: (−3, 2) → (−3, −2)."},
+{t:"Rotasi",d:"Mudah",q:"Titik (4, 1) dirotasikan sebesar 90° berlawanan arah jarum jam dengan pusat O(0, 0). Koordinat bayangannya adalah …",o:["(1, −4)","(−1, 4)","(−4, −1)","(4, −1)","(−4, 1)"],a:1,p:"Rotasi 90° berlawanan arah jarum jam pusat O: (x, y) → (−y, x) = (−1, 4)."},
+{t:"Rotasi",d:"Sedang",q:"Titik (6, −2) dirotasikan sebesar 90° searah jarum jam dengan pusat O(0, 0). Koordinat bayangannya adalah …",o:["(2, 6)","(−2, −6)","(2, −6)","(−6, 2)","(6, 2)"],a:1,p:"Rotasi 90° searah jarum jam pusat O: (x, y) → (y, −x) = (−2, −6)."},
+{t:"Rotasi",d:"Sulit",q:"Pada denah sebuah taman, lampu hias berada di titik A(5, 3). Lampu itu akan dipindahkan dengan cara diputar 90° berlawanan arah jarum jam mengelilingi tiang pusat P(2, 1). Posisi baru lampu adalah …",o:["(0, 4)","(4, 0)","(−2, 3)","(2, 5)","(4, 2)"],a:0,p:"Posisi relatif terhadap P: (3, 2). Setelah rotasi 90° menjadi (−2, 3). Tambahkan koordinat pusat: (−2 + 2, 3 + 1) = (0, 4)."},
+{t:"Rotasi",d:"Sedang",q:"Bayangan titik Q oleh rotasi 90° berlawanan arah jarum jam dengan pusat O adalah Q’(−3, 4). Koordinat titik Q adalah …",o:["(4, 3)","(−4, −3)","(3, 4)","(−4, 3)","(4, −3)"],a:0,p:"Karena (x, y) → (−y, x) = (−3, 4), maka y = 3 dan x = 4. Jadi Q(4, 3)."},
+{t:"Dilatasi",d:"Mudah",q:"Titik (2, −3) didilatasi dengan pusat O(0, 0) dan faktor skala 3. Koordinat bayangannya adalah …",o:["(6, −9)","(5, 0)","(−6, 9)","(6, 9)","(2/3, −1)"],a:0,p:"Dilatasi pusat O: (x, y) → (kx, ky) = (3 · 2, 3 · (−3)) = (6, −9)."},
+{t:"Dilatasi",d:"Sulit",q:"Sebuah foto berukuran 6 cm × 4 cm diperbesar dengan faktor skala 2,5. Luas foto setelah diperbesar adalah …",o:["60 cm²","75 cm²","120 cm²","150 cm²","375 cm²"],a:3,p:"Ukuran baru 15 cm × 10 cm, jadi luasnya 150 cm². Luas bertambah k² = 6,25 kali dari luas semula (24 cm²)."},
+{t:"Dilatasi",d:"Sedang",q:"Titik A(4, 3) didilatasi dengan pusat P(1, 2) dan faktor skala 2. Koordinat bayangan titik A adalah …",o:["(8, 6)","(7, 4)","(5, 4)","(6, 5)","(3, 4)"],a:1,p:"x’ = 2(4 − 1) + 1 = 7 dan y’ = 2(3 − 2) + 2 = 4. Jadi A’(7, 4)."},
+{t:"Dilatasi",d:"Sulit",q:"Titik (−4, 6) didilatasi dengan pusat O(0, 0) dan faktor skala k sehingga bayangannya (2, −3). Nilai k adalah …",o:["−2","−1/2","1/2","2","−3/2"],a:1,p:"k = 2 / (−4) = −1/2. Pengecekan: 6 · (−1/2) = −3 (sesuai)."},
+{t:"Busur & Juring",d:"Mudah",q:"Jarum menit sebuah jam dinding panjangnya 14 cm. Dari angka 12 hingga angka 3, ujung jarum menit menempuh lintasan sepanjang … (π = 22/7)",o:["11 cm","22 cm","44 cm","88 cm","33 cm"],a:1,p:"Angka 12 ke 3 membentuk sudut 90°. Panjang busur = 90/360 × 2 × 22/7 × 14 = 22 cm."},
+{t:"Busur & Juring",d:"Sedang",q:"Sebuah juring lingkaran berjari-jari 21 cm memiliki sudut pusat 60°. Luas juring tersebut adalah … (π = 22/7)",o:["231 cm²","462 cm²","154 cm²","77 cm²","693 cm²"],a:0,p:"L = 60/360 × 22/7 × 21² = 1/6 × 1.386 = 231 cm²."},
+{t:"Busur & Juring",d:"Sedang",q:"Sebuah pizza berdiameter 28 cm dipotong menjadi 8 bagian sama besar. Luas permukaan satu potong pizza adalah … (π = 22/7)",o:["77 cm²","154 cm²","88 cm²","616 cm²","38,5 cm²"],a:0,p:"Tiap potong bersudut 360° : 8 = 45°, dengan r = 14 cm. L = 1/8 × 22/7 × 14² = 77 cm²."},
+{t:"Busur & Juring",d:"Sulit",q:"Sebuah taman bunga berbentuk juring lingkaran dengan jari-jari 14 m dan luas 154 m². Besar sudut pusat juring taman tersebut adalah … (π = 22/7)",o:["45°","60°","90°","120°","150°"],a:2,p:"154 = θ/360 × 22/7 × 14² = θ/360 × 616, sehingga θ = 154 × 360 / 616 = 90°."}
+];
+var order,idx,score,ans,done;
+function $(i){return document.getElementById(i)}
+function sh(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function show(id){["start","quiz","res"].forEach(function(s){$(s).classList.toggle("hide",s!==id)});window.scrollTo(0,0)}
+function begin(){
+  idx=0;score=0;ans=[];
+  order=Q.map(function(q){var o=q.o.map(function(t,i){return{t:t,c:i===q.a}});return sh(o)});
+  show("quiz");render();
+}
+function render(){
+  var q=Q[idx];done=false;
+  $("no").textContent="Soal "+(idx+1)+" dari "+Q.length;
+  $("sc").textContent="Benar: "+score;
+  $("pg").style.width=(idx/Q.length*100)+"%";
+  $("tt").textContent=q.t;$("td").textContent=q.d;
+  $("qt").textContent=q.q;$("fb").innerHTML="";$("nx").classList.add("hide");
+  $("nx").textContent=idx===Q.length-1?"Lihat Hasil":"Lanjut";
+  $("ops").innerHTML="";
+  order[idx].forEach(function(o,i){
+    var b=document.createElement("button");b.className="opt";
+    b.innerHTML="<b>"+"ABCDE"[i]+".</b><span>"+o.t+"</span>";
+    b.onclick=function(){pick(i)};$("ops").appendChild(b);
+  });
+}
+function pick(i){
+  if(done)return;done=true;
+  var o=order[idx],q=Q[idx],bs=$("ops").children,ok=o[i].c;
+  for(var k=0;k<bs.length;k++){bs[k].disabled=true;if(o[k].c)bs[k].classList.add("ok")}
+  if(!ok)bs[i].classList.add("no");
+  if(ok)score++;
+  ans.push({ok:ok,pick:o[i].t,right:q.o[q.a]});
+  $("sc").textContent="Benar: "+score;
+  $("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+(ok?"Tepat!":"Belum tepat.")+"</b> "+q.p+"</div>";
+  $("nx").classList.remove("hide");
+}
+function next(){idx++;if(idx>=Q.length)finish();else render()}
+function finish(){
+  var n=Q.length,pct=Math.round(score/n*100);
+  $("rs").textContent=score+" / "+n+" ("+pct+")";
+  $("rm").textContent=pct>=85?"Luar biasa! Pemahamanmu sudah sangat baik.":pct>=70?"Bagus! Tinggal perkuat beberapa bagian.":pct>=50?"Cukup baik. Pelajari lagi pembahasan di bawah, lalu coba ulang.":"Jangan menyerah. Pelajari ulang rumus dan contoh, lalu coba lagi.";
+  var m={};Q.forEach(function(q,i){var r=m[q.t]||(m[q.t]={b:0,n:0});r.n++;if(ans[i].ok)r.b++});
+  var h="<tr><th>Materi</th><th>Benar</th></tr>";
+  for(var k in m)h+="<tr><td>"+k+"</td><td>"+m[k].b+" / "+m[k].n+"</td></tr>";
+  $("rt").innerHTML=h;
+  var r="";
+  Q.forEach(function(q,i){if(!ans[i].ok)r+='<div class="rv"><p><b>No. '+(i+1)+" ("+q.t+", "+q.d+")</b><br>"+q.q+'</p><p class="mu">Jawabanmu: '+ans[i].pick+" · Jawaban benar: <b>"+ans[i].right+"</b></p><p>"+q.p+"</p></div>"});
+  $("rvc").classList.toggle("hide",!r);$("rv").innerHTML=r;
+  show("res");
+}
+</script>
+</body>
+</html>
